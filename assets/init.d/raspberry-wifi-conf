@@ -12,6 +12,7 @@
 ### END INIT INFO
 
 # Carry out specific functions when asked to by the system
+PIDFile=/home/pi/raspberry-wifi-conf/node.pid
 case "$1" in
   start)
     echo "Starting raspberry-wifi-conf service"
@@ -21,12 +22,20 @@ case "$1" in
     ;;
   stop)
     echo "Stopping raspberry-wifi-conf service"
-    PIDFile=/home/pi/raspberry-wifi-conf/node.pid
     if [ -f $PIDFile ]; then
         sudo kill -9 $(cat $PIDFile)
         sudo kill -9 $(($(cat $PIDFile) + 1))
         sudo rm $PIDFile
     fi
+    ;;
+  status)
+    if [ -f $PIDFile ]; then
+      echo "raspberry-wifi-conf service is live"
+      exit 0
+    else
+      echo "raspberry-wifi-conf service is down"
+      exit 1
+    fi 
     ;;
   *)
     echo "Usage: /etc/init.d/raspberry-wifi-conf {start|stop}"
