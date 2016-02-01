@@ -49,7 +49,7 @@ module.exports = function() {
     },  iwconfig_fields = {
         "ap_addr":         /Access Point:\s([^\s]+)/,
         "ap_ssid":         /ESSID:\"([^\"]+)\"/,
-        "unassociated":    /(unassociated)\s+Nick/,
+        "unassociated":    /(Not-Associated)/,
     },  last_wifi_info = null;
 
     // TODO: rpi-config-ap hardcoded, should derive from a constant
