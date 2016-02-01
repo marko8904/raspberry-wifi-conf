@@ -60,6 +60,7 @@ module.exports = function() {
             hw_addr:      "<unknown>",
             inet_addr:    "<unknown>",
             unassociated: "<unknown>",
+            ap_addr: "<unknown>"
         };
 
         // Inner function which runs a given command and sets a bunch
@@ -114,7 +115,8 @@ module.exports = function() {
         // inet_addr - wifi is enabled!
         if (null        == _is_ap_enabled_sync(info) &&
             "<unknown>" != info["inet_addr"]         &&
-            "<unknown>" == info["unassociated"] ) {
+            "<unknown>" == info["unassociated"] &&
+            "<unknown>" != info["ap_addr"]) {
             return info["inet_addr"];
         }
         return null;
