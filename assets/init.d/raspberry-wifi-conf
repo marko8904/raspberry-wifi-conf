@@ -3,7 +3,7 @@
 
 ### BEGIN INIT INFO
 # Provides:          raspberry-wifi-conf
-# Required-Start:    $local_fs $syslog $network
+# Required-Start:    $local_fs $syslog $network $hostapd
 # Required-Stop:     $local_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
