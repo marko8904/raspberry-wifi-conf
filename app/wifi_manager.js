@@ -4,6 +4,16 @@ var _       = require("underscore")._,
     exec    = require("child_process").exec,
     config  = require("../config.json");
 
+var fs = require('fs');
+var util = require('util');
+var log_file = fs.createWriteStream("/var/log/raspberry-wifi-conf.log", {flags : 'w'});
+var log_stdout = process.stdout;
+
+console.log = function(d) { //
+  log_file.write(util.format(d) + '\n');
+  log_stdout.write(util.format(d) + '\n');
+};
+
 // Better template format
 _.templateSettings = {
     interpolate: /\{\{(.+?)\}\}/g,
@@ -238,7 +248,12 @@ module.exports = function() {
                 function restart_hostapd_service(next_step) {
                     exec("service hostapd restart", function(error, stdout, stderr) {
                         //console.log(stdout);
-                        if (!error) console.log("... hostapd restarted!");
+                        if (!error) {
+                            console.log("... hostapd restarted!");
+                        }
+                        else {
+                            console.log(error);
+                        }
                         next_step();
                     });
                 },
